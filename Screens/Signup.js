@@ -1,120 +1,123 @@
-import React from 'react';
-import {Text, View, Image, TextInput, StyleSheet, ImageBackground} from 'react-native';
-//import Icon from '@expo/vector-icons/AntDesign';
+import React, { useState } from 'react';
+import {View, StyleSheet, Text, ScrollView, Image,Alert} from 'react-native';
+import { Button } from 'react-native-elements';
+import  firebase from "firebase";
 
-export default class Signup extends React.Component{
+import Input from '../constants/Inputs';
+import Submit from '../constants/Submit';
 
-    render(){
-        const {navigate} = this.props.navigation
-        return(
-            <ImageBackground
-                style={styles.background}
-                source={require("../assets/background.png")}>
-                <View>
-                    <View style={styles.container}>
-                        {/*<Image source ={require('../assets/background.png')}
-                        style={{width:"100%",height:"20%"}}
-                        />*/}
-                        <Text
-                        style={{
-                            fontSize:30,
-                            fontFamily:"SemiBold",
-                            alignSelf:"center",
-                            //paddingBottom: "",
-                        }}
-                        >Sign In</Text>
 
-                        <Text
-                        style={{
-                            fontFamily:"SemiBold",
-                            marginHorizontal:55,
-                            textAlign:'center',
-                            marginTop:5,
-                            opacity:0.4
-                        }}
-                        >
-                            Sign in now to see your appointments
-                        </Text>
+function SignUp({ navigation }) {
+  
+    const [data, setData] = React.useState({
+        username: '',
+        password: '',
+        check_textInputChange: false,
+        secureTextEntry: true,
+        isValidUser: true,
+        isValidPassword: true,
+    });
 
-                        <View style={{
-                            flexDirection:"row",
-                            alignItems:"center",
-                            marginHorizontal:55,
-                            borderWidth:2,
-                            marginTop:40,
-                            paddingHorizontal:10,
-                            borderColor:"#00716F",
-                            borderRadius:23,
-                            paddingVertical:2
-                        }}>
-                            {/*<Icon name="mail" color="#00716F" size={24}/>*/}
-                            <TextInput 
-                                style={{paddingHorizontal:10}}
-                            />
 
-                            
-
-                        </View>
-                        <View style={{
-                            flexDirection:"row",
-                            alignItems:"center",
-                            marginHorizontal:55,
-                            borderWidth:2,
-                            marginTop:15,
-                            paddingHorizontal:10,
-                            borderColor:"#00716F",
-                            borderRadius:23,
-                            paddingVertical:2
-                        }}>
-                            {/*<Icon name="mail" color="#00716F" size={24}/>*/}
-                            <TextInput 
-                                style={{paddingHorizontal:10}}
-                            />
-
-                            
-
-                        </View>
-
-                        <View style={{
-                            marginHorizontal:55,
-                            alignItems:"center",
-                            justifyContent:"center",
-                            marginTop:30,
-                            backgroundColor:"#00716F",
-                            paddingVertical:10,
-                            borderRadius:23
-                        }}>
-                            <Text style={{
-                                color:"white",
-                                //fontFamily:"SemiBold"
-                            }}>Already a member</Text>
-                        </View>
-                        <Text 
-                        
-                        onPress={()=>navigate('WelcomeScreen')}
-                        
-                        style={{
-                            alignSelf:"center",
-                            color:"#00716F",
-                            //fontFamily:"SemiBold",
-                            paddingVertical:30
-                        }}>New User</Text>
-                    </View>
-                </View>
-            </ImageBackground>
-        )
+    const textInputChange = (val) => {
+        if( val.trim().length >= 4 ) {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true,
+                isValidUser: true
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false,
+                isValidUser: false
+            });
+        }
     }
-}
+
+    const handlePasswordChange = (val) => {
+        if( val.trim().length >= 8 ) {
+            setData({
+                ...data,
+                password: val,
+                isValidPassword: true
+            });
+        } else {
+            setData({
+                ...data,
+                password: val,
+                isValidPassword: false
+            });
+        }
+    }
+
+
+    const CreateUser= (userName, password) =>{
+        
+        const username = data.username; 
+        const password_1 = data.password;
+         firebase.auth().createUserWithEmailAndPassword(username, password_1)
+            .then((result) => {
+                console.log(result)
+                navigation.navigate('Bottombar')
+            })
+            .catch((error) => {
+                console.log(error)
+                Alert.alert(
+                    "Error",
+                    ""+error                    
+                    );
+            })
+            
+    }
+
+
+
+
+    return (
+        <ScrollView style={{backgroundColor: 'white'}}>
+            <View style={styles.container}> 
+                <Image source={require('../assets/images/signup.png')} resizeMode="center" style={styles.image} />
+                <Text style={styles.textTitle}>Let's Get Started</Text>
+                <Text style={styles.textBody}>Create an account to get all features</Text>
+                <Input name="Full Name" icon="user" />
+                <Input name="Email" icon="envelope" onChangeText={(val) => textInputChange(val)} />
+                <Input name="Phone" icon="phone" />
+                <Input name="Password" icon="lock" pass={true} onChangeText={(val) => handlePasswordChange(val)} />
+                <Input name="Confirm Password" icon="lock" pass={true} />
+                <Button color="#00BCD4" title="CREATE" onPress={CreateUser( data.username, data.password )}/>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.textBody}>Aiready have an account</Text>
+                    <Text style={[styles.textBody, {color: 'blue'}]} onPress={() => navigation.navigate('Signin')}> Login here</Text>
+
+                </View>
+            </View>
+            
+        </ScrollView>    
+    );
+};
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor:"#FFF",
-        height: "70%",
-    },
-    background: {
+    container: {
         flex: 1,
-        justifyContent: 'flex-end',
-        //alignItems: "Center"
+        alignItems: 'center',
     },
-
+    image: {
+        width: 400,
+        height: 250,
+        marginVertical: 10,
+    },
+    textTitle: {
+        fontSize: 40,
+        fontFamily: '',
+        marginVertical: 5
+    },
+    textBody: {
+        fontSize: 16,
+        fontFamily: ''
+    }
 });
+
+export default SignUp;

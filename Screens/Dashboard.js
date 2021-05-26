@@ -12,62 +12,65 @@ import {
     TouchableOpacity
 } from "react-native"
 import { COLORS, SIZES, FONTS, icons, images } from "../constants"
+import * as firebase from 'firebase'
 
-const Home = () => {
-
+const Home = ({navigation}) => {
+    const user = firebase.auth().currentUser;
+  
     const featuresData = [
         {
             id: 1,
-            icon: icons.reload,
-            color: COLORS.purple,
-            backgroundColor: COLORS.lightpurple,
-            description: "Top Up"
+            color: COLORS.blue,
+            backgroundColor: COLORS.lightblue,
+            icon: icons.doc1,
+            
+            description: "Doctor 1"
         },
         {
             id: 2,
-            icon: icons.send,
-            color: COLORS.yellow,
-            backgroundColor: COLORS.lightyellow,
-            description: "Transfer"
+            icon: icons.doc2,
+            //color: COLORS.yellow,
+            //backgroundColor: COLORS.lightyellow,
+            description: "Doctor 2"
         },
         {
             id: 3,
-            icon: icons.internet,
+            icon: icons.doc1,
             color: COLORS.primary,
             backgroundColor: COLORS.lightGreen,
-            description: "Internet"
+            description: "Doctor 3"
         },
         {
             id: 4,
-            icon: icons.wallet,
+            icon: icons.doc2,
             color: COLORS.red,
             backgroundColor: COLORS.lightRed,
-            description: "Wallet"
+            description: "Doctor 4"
         },
         {
             id: 5,
-            icon: icons.bill,
+            icon: icons.doc1,
             color: COLORS.yellow,
             backgroundColor: COLORS.lightyellow,
-            description: "Bill"
+            description: "Doctor 5"
         },
         {
             id: 6,
-            icon: icons.game,
+            icon: icons.doc2,
             color: COLORS.primary,
             backgroundColor: COLORS.lightGreen,
-            description: "Games"
+            description: "Doctor 6"
         },
         {
             id: 7,
-            icon: icons.phone,
+            icon: icons.doc1,
             color: COLORS.red,
             backgroundColor: COLORS.lightRed,
-            description: "Mobile Prepaid"
+            description: "Doctor 7"
         },
         {
             id: 8,
-            icon: icons.more,
+            icon: icons.doc2,
             color: COLORS.purple,
             backgroundColor: COLORS.lightpurple,
             description: "More"
@@ -78,14 +81,14 @@ const Home = () => {
         {
             id: 1,
             img: images.promoBanner,
-            title: "Bonus Cashback1",
-            description: "Don't miss it. Grab it now!"
+            title: "X-ray Analysis",
+            description: "Scan your chest x-ray here!"
         },
         {
             id: 2,
-            img: images.promoBanner,
-            title: "Bonus Cashback2",
-            description: "Don't miss it. Grab it now!"
+            img: images.health,
+            title: "Apointments",
+            description: "Book your appointment today!"
         },
         {
             id: 3,
@@ -107,9 +110,18 @@ const Home = () => {
     function renderHeader() {
         return (
             <View style={{ flexDirection: 'row', marginVertical: SIZES.padding * 2 }}>
-                <View style={{ flex: 1, top:20 }}>
+                <View style={{ flex: 1, top:20}}>
                     <Text style={{ ...FONTS.h1 }}>Hello!</Text>
-                    <Text style={{ ...FONTS.body2, color: COLORS.gray }}>ByProgrammers</Text>
+                    {user&& 
+                      <Text style={{ ...FONTS.body2, color: COLORS.gray, bottom:5}}>{user.email}</Text>
+                    
+                     }
+
+                    {!user&& 
+                      <Text style={{ ...FONTS.body2, color: COLORS.gray, bottom:5}}>Guest</Text>
+                    
+                     }
+   
                 </View>
 
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -121,6 +133,7 @@ const Home = () => {
                             alignItems: 'center',
                             backgroundColor: COLORS.lightGray
                         }}
+                 
                     >
                         <Image
                             source={icons.bell}
@@ -157,15 +170,18 @@ const Home = () => {
                     borderRadius: 20,
                 }}
             >
+               
                 <Image
                     source={images.banner}
                     resizeMode="cover"
                     style={{
                         width: "100%",
                         height: "100%",
-                        borderRadius: 20
+                        borderRadius: 20,
+                        
                     }}
                 />
+             
             </View>
         )
     }
@@ -174,7 +190,7 @@ const Home = () => {
 
         const Header = () => (
             <View style={{ marginBottom: SIZES.padding * 2 }}>
-                <Text style={{ ...FONTS.h3 }}>Features</Text>
+                <Text style={{ ...FONTS.h3 }}>Doctors</Text>
             </View>
         )
 
@@ -240,7 +256,7 @@ const Home = () => {
                 }}
             >
                 <View style={{ flex: 1 }}>
-                    <Text style={{ ...FONTS.h3 }}>Special Promos</Text>
+                    <Text style={{ ...FONTS.h3 }}>X-ray detection</Text>
                 </View>
                 <TouchableOpacity
                     onPress={() => console.log("View All")}
@@ -307,6 +323,7 @@ const Home = () => {
                     <View style={{ marginBottom: 80 }}>
                     </View>
                 }
+                onPress={()=>navigation.navigate('Xray')}
             />
         )
     }

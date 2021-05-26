@@ -17,6 +17,9 @@ const send = require("../assets/icons/send.png");
 const user = require("../assets/icons/user.png");
 const wallet = require("../assets/icons/wallet.png");
 
+const doc1 = require("../assets/icons/doc1.png");
+const doc2 = require("../assets/icons/doc2.png");
+
 export default {
     back,
     bell,
@@ -35,5 +38,7 @@ export default {
     scan,
     send,
     user,
-    wallet
+    wallet,
+    doc1,
+    doc2
 }

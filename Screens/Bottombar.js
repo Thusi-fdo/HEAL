@@ -6,9 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import DashboardScreen from './Dashboard';
-import DetailsScreen from './Signin';
+import DetailsScreen from './XrayAnalysis';
 import ExploreScreen from './Signup';
-import ProfileScreen from './WelcomeScreen';
+import ProfileScreen from './DoctorScreen';
 
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
@@ -25,7 +25,7 @@ const Bottombar = () => (
         component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarColor: '#009387',
+          tabBarColor: '#00BCD4',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-home" color={color} size={26} />
           ),
@@ -36,7 +36,7 @@ const Bottombar = () => (
         component={DetailsStackScreen}
         options={{
           tabBarLabel: 'Updates',
-          tabBarColor: '#1f65ff',
+          tabBarColor: '#00BCD4',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-notifications" color={color} size={26} />
           ),
@@ -47,7 +47,7 @@ const Bottombar = () => (
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarColor: '#694fad',
+          tabBarColor: '#00BCD4',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-person" color={color} size={26} />
           ),
@@ -58,7 +58,7 @@ const Bottombar = () => (
         component={ExploreScreen}
         options={{
           tabBarLabel: 'Explore',
-          tabBarColor: '#d02860',
+          tabBarColor: '#00BCD4',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-aperture" color={color} size={26} />
           ),
@@ -72,7 +72,7 @@ export default Bottombar;
 const HomeStackScreen = ({navigation}) => (
 <HomeStack.Navigator screenOptions={{
         headerStyle: {
-        backgroundColor: '#009387',
+        backgroundColor: '#00BCD4',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -82,7 +82,7 @@ const HomeStackScreen = ({navigation}) => (
         <HomeStack.Screen name="Home" component={DashboardScreen} options={{
         title:'Overview',
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button name="ios-menu" size={25} backgroundColor="#00BCD4" onPress={() => navigation.openDrawer()}></Icon.Button>
         )
         }} />
 </HomeStack.Navigator>
@@ -91,7 +91,7 @@ const HomeStackScreen = ({navigation}) => (
 const DetailsStackScreen = ({navigation}) => (
 <DetailsStack.Navigator screenOptions={{
         headerStyle: {
-        backgroundColor: '#1f65ff',
+        backgroundColor: '#00BCD4',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -100,7 +100,7 @@ const DetailsStackScreen = ({navigation}) => (
     }}>
         <DetailsStack.Screen name="Details" component={DetailsScreen} options={{
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button name="ios-menu" size={25} backgroundColor="#00BCD4" onPress={() => navigation.openDrawer()}></Icon.Button>
         )
         }} />
 </DetailsStack.Navigator>

@@ -1,6 +1,7 @@
 const wallieLogo = require("../assets/images/wallie-logo.png");
 const banner = require("../assets/images/banner.png");
-const promoBanner = require("../assets/images/promo-banner.png");
+const promoBanner = require("../assets/images/promo-banner.jpg");
+const health = require("../assets/images/health.jpg");
 const focus = require("../assets/images/focus.png");
 
 // Dummy
@@ -12,6 +13,7 @@ export default {
     banner,
     promoBanner,
     focus,
+    health,
 
     // Dummy
     usFlag

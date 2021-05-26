@@ -10,6 +10,8 @@ import Signup from './Screens/Signup';
 import Dashboard from './Screens/Dashboard';
 import Signin from './Screens/Signin';
 import Bottombar from './Screens/Bottombar';
+import Xray from './Screens/XrayAnalysis';
+import Vcall from './Screens/Vcall'
 
 const Stack = createStackNavigator();
 
@@ -26,6 +28,8 @@ export default function App() {
             <Stack.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}} />
             <Stack.Screen name="Signin" component={Signin} options={{headerShown: false}} />
             <Stack.Screen name="Bottombar" component={Bottombar} options={{headerShown: false}} />
+            <Stack.Screen name="Xray" component={Xray} options={{headerShown: false}} />
+            <Stack.Screen name="Vcall" component={Vcall} options={{headerShown: false}} />
 
             
             
